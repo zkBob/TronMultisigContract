@@ -1,11 +1,11 @@
-pragma solidity ^0.4.15;
+pragma solidity ^0.8.0;
 import "./Factory.sol";
 import "./MultiSigWalletWithDailyLimit.sol";
 
 
 /// @title Multisignature wallet factory for daily limit version - Allows creation of multisig wallet.
 /// @author Stefan George - <stefan.george@consensys.net>
-contract MultiSigWalletWithDailyLimitFactory is Factory {
+contract MultiSigWalletDailyLimitFactory is Factory {
 
     /*
      * Public functions
@@ -14,12 +14,12 @@ contract MultiSigWalletWithDailyLimitFactory is Factory {
     /// @param _owners List of initial owners.
     /// @param _required Number of required confirmations.
     /// @param _dailyLimit Amount in wei, which can be withdrawn without confirmations on a daily basis.
-    /// @return Returns wallet address.
-    function create(address[] _owners, uint _required, uint _dailyLimit)
+    /// @return wallet wallet address.
+    function create(address[] calldata _owners, uint _required, uint _dailyLimit)
         public
-        returns (address wallet)
+        returns (MultiSigWalletWithDailyLimit wallet)
     {
         wallet = new MultiSigWalletWithDailyLimit(_owners, _required, _dailyLimit);
-        register(wallet);
+        register(address(wallet));
     }
 }
